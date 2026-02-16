@@ -479,7 +479,7 @@
             <h2 class="section-title">Health Assessment</h2>
             
             <div class="info-box">
-                <strong>About this assessment:</strong> PCOSense uses a trained Random Forest machine learning model with 78% accuracy to analyze your health indicators. The model was trained on real clinical PCOS data and provides personalized insights based on patterns in the data. Please fill in all fields accurately for the best results.
+                <strong>About this assessment:</strong> PCOSense uses a trained Random Forest machine learning model with 78% accuracy to analyze your health indicators. The model was trained on real clinical PCOS data and provides personalized insights with recommendations across four key areas: Yoga, Nutrition, Exercise, and Stress Management. Please fill in all fields accurately for the best results.
             </div>
             
             <form id="pcosForm">
@@ -739,6 +739,14 @@
                     <h3 class="rec-title">Exercise Plan</h3>
                     <ul class="rec-list">
                         ${recommendations.exercise.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="recommendation-card">
+                    <div class="rec-icon">🌸</div>
+                    <h3 class="rec-title">Stress Management</h3>
+                    <ul class="rec-list">
+                        ${recommendations.stress_management.map(item => `<li>${item}</li>`).join('')}
                     </ul>
                 </div>
             `;

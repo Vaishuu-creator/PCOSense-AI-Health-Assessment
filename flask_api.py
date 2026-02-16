@@ -27,7 +27,8 @@ def get_lifestyle_recommendations(stage, age, bmi, features):
     recommendations = {
         'yoga': [],
         'nutrition': [],
-        'exercise': []
+        'exercise': [],
+        'stress_management': []
     }
     
     # Risk factor analysis
@@ -173,6 +174,67 @@ def get_lifestyle_recommendations(stage, age, bmi, features):
             'Stay active throughout the day - take movement breaks',
             'Include activities you enjoy for long-term adherence',
             'Practice stress-reduction techniques regularly'
+        ]
+    
+    # STRESS MANAGEMENT RECOMMENDATIONS
+    base_stress = [
+        'Practice deep breathing exercises - 5-10 minutes, twice daily',
+        'Prioritize sleep - aim for 7-9 hours per night with consistent schedule',
+        'Establish a calming bedtime routine - no screens 1 hour before sleep',
+        'Practice gratitude journaling - write 3 things daily'
+    ]
+    
+    recommendations['stress_management'].extend(base_stress)
+    
+    if stage >= 1:
+        recommendations['stress_management'].extend([
+            'Guided meditation - start with 10 minutes daily, build to 20 minutes',
+            'Progressive Muscle Relaxation (PMR) - release tension systematically',
+            'Mindfulness practices during daily activities (eating, walking)'
+        ])
+    
+    if stage >= 2 or irregular_cycle:
+        recommendations['stress_management'].extend([
+            'Consider therapy or counseling for chronic stress management',
+            'Body scan meditation - check in with physical sensations',
+            'Limit caffeine intake - especially after 2 PM',
+            'Create stress-free zones - designate calm spaces at home',
+            'Practice saying "no" - set healthy boundaries'
+        ])
+    
+    if stage >= 3 or (pimples and hair_growth):
+        recommendations['stress_management'].extend([
+            'Biofeedback or stress-monitoring apps to track patterns',
+            'Nature therapy - spend 20-30 minutes outdoors daily',
+            'Creative outlets - art, music, writing for emotional expression',
+            'Limit social media - take regular digital detoxes',
+            'Aromatherapy - lavender, chamomile for relaxation'
+        ])
+    
+    if high_bmi or weight_gain:
+        recommendations['stress_management'].extend([
+            'Emotional eating awareness - identify triggers and alternatives',
+            'Stress journaling - track cortisol-related eating patterns',
+            'Self-compassion practices - be kind to yourself'
+        ])
+    
+    if stage == 4:
+        recommendations['stress_management'].extend([
+            'Consider professional stress management programs',
+            'Cognitive Behavioral Therapy (CBT) techniques',
+            'Support groups - connect with others managing PCOS',
+            'Regular check-ins with mental health professional'
+        ])
+    
+    if stage == 0:
+        recommendations['stress_management'] = [
+            'Maintain work-life balance',
+            'Practice regular relaxation techniques (meditation, deep breathing)',
+            'Get 7-9 hours of quality sleep nightly',
+            'Engage in hobbies and activities you enjoy',
+            'Stay socially connected with supportive relationships',
+            'Take regular breaks during work or study',
+            'Practice mindfulness in daily activities'
         ]
     
     return recommendations
