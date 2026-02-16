@@ -309,6 +309,3 @@ If you find this project helpful, please consider giving it a star on GitHub!
 ---
 
 **Disclaimer**: This is a research and educational project. Always consult healthcare professionals for medical advice.
-```
-
----
