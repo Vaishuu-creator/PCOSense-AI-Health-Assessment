@@ -1,98 +1,154 @@
-# PCOSense - AI-Powered PCOS Health Assessment System
+# 🌸 PCOSense - AI-Powered PCOS Health Assessment
 
-An intelligent web application that uses machine learning to predict PCOS stages and provide personalized lifestyle recommendations.
+[![Python](https://img.shields.io/badge/Python-3.7%2B-blue.svg)](https://www.python.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.0%2B-orange.svg)](https://scikit-learn.org/)
+[![Flask](https://img.shields.io/badge/Flask-2.0%2B-green.svg)](https://flask.palletsprojects.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Accuracy](https://img.shields.io/badge/Model%20Accuracy-77.98%25-brightgreen.svg)]()
 
-## 🎯 Features
+An intelligent web application that uses machine learning to predict PCOS (Polycystic Ovary Syndrome) stages and provides evidence-based, personalized lifestyle recommendations including yoga, nutrition, and exercise plans.
 
-- **Machine Learning Prediction**: Random Forest model trained on 541 clinical PCOS cases
-- **78% Accuracy**: Reliable predictions based on real medical data
-- **5-Stage Classification**: From No PCOS to Stage 4 (Severe)
-- **Personalized Recommendations**: Custom yoga, nutrition, and exercise plans based on:
-  - PCOS severity stage
-  - Individual risk factors
-  - BMI and metabolic indicators
-  - Hyperandrogenism symptoms
-- **Beautiful UI**: Elegant, responsive design with smooth animations
-- **Real-time API**: Flask-based REST API for predictions
+![PCOSense Demo](screenshot.png)
 
-## 📊 Model Details
+## 🎯 Overview
 
-- **Algorithm**: Random Forest Classifier
-- **Training Data**: 541 patients, 45 clinical features
-- **Test Accuracy**: 77.98%
-- **Features Used**: 
-  - Age, BMI
-  - Cycle length and regularity
-  - Hyperandrogenism indicators (hair growth, acne, hair loss)
-  - Metabolic markers (weight gain, skin darkening)
-  - Physiological parameters (pulse rate, blood sugar)
+PCOSense combines clinical data analysis with machine learning to help women understand their PCOS risk and receive actionable health guidance. The system analyzes 9 key health indicators and provides:
+
+- **PCOS Stage Prediction**: 5-stage classification (No PCOS → Stage 4 Severe)
+- **Confidence Scoring**: Transparent ML predictions with confidence percentages
+- **Risk Factor Analysis**: Identifies metabolic, hormonal, and lifestyle concerns
+- **Personalized Recommendations**: Custom yoga routines, nutrition plans, and exercise programs
+
+## ✨ Key Features
+
+### 🤖 Machine Learning
+- **Random Forest Classifier** trained on 541 clinical PCOS cases
+- **77.98% accuracy** on test dataset
+- 12 engineered features from medical indicators
+- Balanced class weights for improved minority class prediction
+
+### 🎨 User Interface
+- Beautiful, responsive web design with smooth animations
+- Real-time API status monitoring
+- Mobile-friendly interface
+- Intuitive form validation and error handling
+
+### 💡 Intelligent Recommendations
+Personalized suggestions based on:
+- PCOS severity stage (0-4)
+- Individual risk factors (BMI, cycle irregularity, hyperandrogenism)
+- Metabolic indicators
+- Evidence-based medical research
+
+### 🏋️‍♀️ Recommendation Categories
+- **Yoga**: Specific asanas, pranayama, and meditation techniques
+- **Nutrition**: Anti-inflammatory foods, glycemic control, hormone-balancing nutrients
+- **Exercise**: Cardio protocols, strength training, HIIT programs
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
 ```bash
-pip install flask flask-cors scikit-learn pandas numpy pickle5
+Python 3.7+
+pip (Python package manager)
 ```
 
-### Step 1: Start the Flask API Server
+### Installation
 
+1. **Clone the repository**
 ```bash
+git clone https://github.com/yourusername/PCOSense-AI-Health-Assessment.git
+cd PCOSense-AI-Health-Assessment
+```
 
+2. **Install dependencies**
+```bash
+pip install -r requirements.txt
+```
+
+3. **Start the API server**
+```bash
 python flask_api.py
 ```
 
-You should see:
+4. **Open the web application**
+```bash
+open pcosense_ml.html
 ```
-============================================================
-PCOSense ML API Server
-============================================================
-Model: Random Forest
-Accuracy: 77.98%
-Server starting on http://localhost:5000
-============================================================
-```
+Or navigate to the file in your browser.
 
-### Step 2: Open the Web Application
-
-Open `pcosense_ml.html` in your web browser. The API status indicator in the top-right should show "AI Model Online".
-
-### Step 3: Complete the Assessment
-
-Fill in the 9 health parameters:
-1. Age (years)
-2. BMI (Body Mass Index)
-3. Menstrual cycle length (days)
-4. Cycle regularity
-5. Excess hair growth (hirsutism)
-6. Acne/pimples
-7. Hair loss/thinning
-8. Recent weight gain
-9. Skin darkening (acanthosis nigricans)
-
-Click "Analyze with AI" to get your results!
-
-## 📁 File Structure
-
-```
-/PCOsense/
-├── pcos_model.pkl           # Trained Random Forest model
-├── scaler.pkl               # Feature scaler for normalization
-├── model_metadata.json      # Model information and feature importance
-├── train_pcos_model.py      # Training script
-├── flask_api.py             # REST API server
-├── pcosense_ml.html         # Web application (ML-powered)
-└── README.md               # This file
+### One-Click Startup (Linux/Mac)
+```bash
+chmod +x start_pcosense.sh
+./start_pcosense.sh
 ```
 
-## 🔧 API Endpoints
+## 📊 Model Performance
+```
+Overall Accuracy: 77.98%
+Training Samples: 432
+Test Samples: 109
+
+Class-wise Performance:
+┌─────────────┬───────────┬────────┬──────────┐
+│ PCOS Stage  │ Precision │ Recall │ F1-Score │
+├─────────────┼───────────┼────────┼──────────┤
+│ No PCOS     │   84%     │  89%   │   87%    │
+│ Mild        │  100%     │  33%   │   50%    │
+│ Moderate    │   29%     │  25%   │   27%    │
+│ Significant │   67%     │  46%   │   55%    │
+│ Severe      │   73%     │  92%   │   81%    │
+└─────────────┴───────────┴────────┴──────────┘
+```
+
+### Feature Importance
+1. **BMI** (14.0%)
+2. **Weight** (11.9%)
+3. **Hair Growth** (10.6%)
+4. **Age** (10.5%)
+5. **Weight Gain** (8.9%)
+
+## 🏗️ Architecture
+```
+┌─────────────────┐         ┌─────────────────┐         ┌─────────────────┐
+│   Web Browser   │◄───────►│   Flask API     │◄───────►│  ML Model       │
+│  (Frontend)     │  HTTP   │  (Backend)      │         │  (Random Forest)│
+└─────────────────┘         └─────────────────┘         └─────────────────┘
+```
+
+**Tech Stack:**
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript
+- **Backend**: Flask, Flask-CORS
+- **ML**: scikit-learn, pandas, numpy
+- **Model**: Random Forest Classifier (200 estimators)
+
+## 📁 Project Structure
+```
+PCOSense/
+├── pcosense_ml.html          # Web application interface
+├── flask_api.py              # REST API server
+├── train_pcos_model.py       # Model training script
+├── pcos_model.pkl            # Trained ML model
+├── scaler.pkl                # Feature scaler
+├── model_metadata.json       # Model information
+├── test_api.py               # API testing suite
+├── start_pcosense.sh         # Startup script
+├── requirements.txt          # Python dependencies
+├── README.md                 # This file
+├── QUICKSTART.md             # Quick start guide
+├── ARCHITECTURE.md           # System architecture
+└── docs/                     # Additional documentation
+```
+
+## 🔧 API Documentation
 
 ### Health Check
-```bash
-GET http://localhost:5000/health
+```http
+GET /health
 ```
-
-Response:
+**Response:**
+>>>>>>> 326c782360a720470f9727bfc2c98fab165f85e3
 ```json
 {
   "status": "healthy",
@@ -102,13 +158,16 @@ Response:
 ```
 
 ### Prediction
-```bash
-POST http://localhost:5000/predict
-Content-Type: application/json
 
+```http
+POST /predict
+Content-Type: application/json
+```
+**Request Body:**
+```json
 {
   "age": 28,
-  "bmi": 27,
+  "bmi": 27.0,
   "cycle_length": 38,
   "cycle_regularity": 0,
   "hair_growth": 1,
@@ -119,7 +178,9 @@ Content-Type: application/json
 }
 ```
 
-Response:
+
+**Response:**
+
 ```json
 {
   "success": true,
@@ -142,143 +203,194 @@ Response:
 }
 ```
 
-## 🎨 PCOS Stages
 
-### Stage 0 - No PCOS
-- Low likelihood of PCOS
-- Hormonal health appears balanced
-- Preventive lifestyle recommendations
+## 🧪 Testing
 
-### Stage 1 - Early/Mild
-- Mild PCOS indicators detected
-- Early intervention highly effective
-- Focus on lifestyle optimization
-
-### Stage 2 - Moderate
-- Moderate PCOS symptoms present
-- Lifestyle modifications important
-- May benefit from medical consultation
-
-### Stage 3 - Significant
-- Significant PCOS indicators
-- Medical consultation recommended
-- Comprehensive lifestyle changes needed
-
-### Stage 4 - Severe
-- Severe PCOS symptoms detected
-- Immediate medical attention advised
-- Intensive lifestyle intervention required
-
-## 🧘‍♀️ Recommendation Categories
-
-### Yoga
-- Asanas for hormonal balance
-- Stress-relief poses
-- Pranayama (breathing exercises)
-- Stage-specific intensity levels
-
-### Nutrition
-- Anti-inflammatory foods
-- Blood sugar management
-- Hormone-balancing nutrients
-- Personalized dietary strategies
-
-### Exercise
-- Cardio recommendations
-- Strength training protocols
-- HIIT programs for weight management
-- Recovery and stress management
-
-## 🔬 Model Training
-
-To retrain the model with updated data:
-
+Run the test suite:
 ```bash
-python train_pcos_model.py
+python test_api.py
 ```
 
-This will:
-1. Load and clean the PCOS dataset
-2. Engineer features and severity scores
-3. Train Random Forest and Gradient Boosting models
-4. Compare models and save the best one
-5. Generate feature importance analysis
-6. Save model artifacts (model, scaler, metadata)
+This validates:
+- API health endpoint
+- Prediction endpoint
+- Multiple test scenarios
+- Response format validation
 
-## 📈 Feature Importance
+## 📈 Dataset
 
-Top features for PCOS prediction:
-1. BMI (14.0%)
-2. Weight (11.9%)
-3. Hair growth (10.6%)
-4. Age (10.5%)
-5. Weight gain (8.9%)
-6. Cycle regularity (8.5%)
-7. Blood sugar (7.8%)
-8. Skin darkening (6.4%)
+The model was trained on a comprehensive PCOS dataset containing:
+- **541 patients**
+- **45 clinical features**
+- Multiple diagnostic parameters including:
+  - Hormonal markers (FSH, LH, AMH, testosterone)
+  - Metabolic indicators (BMI, blood sugar, insulin resistance)
+  - Physical symptoms (hirsutism, acne, hair loss)
+  - Ultrasound findings (follicle counts)
 
-## ⚕️ Medical Disclaimer
+## 🔒 Privacy & Security
 
-This application is for informational and educational purposes only. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with qualified healthcare providers regarding PCOS or any medical condition.
+- ✅ **Local Processing**: All data processed on your machine
+- ✅ **No External APIs**: No data sent to third parties
+- ✅ **No Data Storage**: Predictions not saved unless user chooses
+- ✅ **CORS Enabled**: Secure cross-origin requests
+- ✅ **Open Source**: Transparent, auditable code
 
-## 🛠️ Troubleshooting
+## ⚠️ Medical Disclaimer
 
-### API Status shows "Offline"
-- Ensure Flask server is running: `python flask_api.py`
-- Check that port 5000 is not blocked
-- Verify all dependencies are installed
+**Important**: PCOSense is an educational and informational tool. It is **NOT** a substitute for professional medical advice, diagnosis, or treatment. 
 
-### CORS Errors
-- Make sure flask-cors is installed: `pip install flask-cors`
-- Restart the Flask server
-
-### Low Confidence Predictions
-- Ensure all input fields are filled accurately
-- Extreme or unusual values may reduce confidence
-- Model performs best with typical ranges
-
-## 📊 Performance Metrics
-
-```
-Overall Accuracy: 77.98%
-Training Accuracy: 95.83%
-
-Per-Class Performance:
-- No PCOS (Stage 0): 87% F1-score
-- Mild (Stage 1): 50% F1-score
-- Moderate (Stage 2): 27% F1-score
-- Significant (Stage 3): 55% F1-score
-- Severe (Stage 4): 81% F1-score
-```
+- Always consult qualified healthcare providers regarding PCOS or any medical condition
+- Use predictions as a starting point for discussions with your doctor
+- Do not make medical decisions based solely on this tool
+- Model accuracy of 78% means ~22% of predictions may be incorrect
 
 ## 🚀 Future Enhancements
 
-- [ ] Add support for hormonal test results (FSH, LH, AMH)
-- [ ] Integrate ultrasound findings (follicle counts)
-- [ ] Track symptoms over time
-- [ ] Add export functionality for reports
-- [ ] Implement user authentication and history
-- [ ] Mobile app version
-- [ ] Integration with wearable devices
+- [ ] Integration with hormonal test results (FSH, LH, AMH)
+- [ ] Ultrasound findings analysis
+- [ ] Symptom tracking over time
+- [ ] PDF report generation
+- [ ] User authentication and history
+- [ ] Mobile app (React Native)
+- [ ] Multi-language support
+- [ ] Wearable device integration
 
-## 📝 Dataset
+## 🤝 Contributing
 
-The model was trained on a comprehensive PCOS dataset containing:
-- 541 patients
-- 45 clinical features
-- Multiple diagnostic parameters
-- Hormonal, metabolic, and physical indicators
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes:
 
-## 👩‍⚕️ Credits
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Developed using clinical PCOS data and evidence-based medical research. Machine learning model trained on peer-reviewed diagnostic criteria.
+### Development Setup
+```bash
+# Clone your fork
+git clone https://github.com/yourusername/PCOSense-AI-Health-Assessment.git
 
-## 📄 License
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-Educational and research purposes. Not for commercial medical use without proper certification and regulatory approval.
+# Install dependencies
+pip install -r requirements.txt
+
+# Run tests
+python test_api.py
+```
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+**Note**: This software is for educational and research purposes. Not approved for commercial medical use without proper certification and regulatory approval.
+
+## 👥 Authors
+
+- **Your Name** - *Initial work* - [YourGitHub](https://github.com/yourusername)
+
+## 🙏 Acknowledgments
+
+- Clinical PCOS dataset contributors
+- scikit-learn development team
+- Flask framework maintainers
+- Medical research community for evidence-based guidelines
+
+## 📚 References
+
+- Rotterdam ESHRE/ASRM-Sponsored PCOS Consensus Workshop Group
+- Evidence-based guidelines for PCOS management
+- WHO guidelines on physical activity and nutrition
+
+## 📧 Contact
+
+For questions, suggestions, or collaboration:
+- **Email**: your.email@example.com
+- **LinkedIn**: [Your Profile](https://linkedin.com/in/yourprofile)
+- **Twitter**: [@yourhandle](https://twitter.com/yourhandle)
+
+## ⭐ Show Your Support
+
+If you find this project helpful, please consider giving it a star ⭐ on GitHub!
 
 ---
 
-**Version**: 1.0  
-**Model**: Random Forest Classifier  
-**Last Updated**: February 2026
+**Disclaimer**: This is a research and educational project. Always consult healthcare professionals for medical advice.
+```
+
+---
+
+## **Topics/Tags for GitHub:**
+```
+machine-learning
+healthcare
+pcos
+womens-health
+random-forest
+flask-api
+web-application
+predictive-analytics
+medical-ai
+health-tech
+python
+scikit-learn
+personalized-medicine
+lifestyle-recommendations
+clinical-decision-support
+```
+
+## **.gitignore file:**
+```
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# ML Models (optional - you might want to include these)
+# *.pkl
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# Test coverage
+.coverage
+htmlcov/
+
+# Temporary files
+tmp/
+temp/
+```
+
+## **requirements.txt:**
+```
+flask==2.3.0
+flask-cors==4.0.0
+scikit-learn==1.3.0
+pandas==2.0.0
+numpy==1.24.0
+
