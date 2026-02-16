@@ -8,8 +8,6 @@
 
 An intelligent web application that uses machine learning to predict PCOS (Polycystic Ovary Syndrome) stages and provides evidence-based, personalized lifestyle recommendations including yoga, nutrition, and exercise plans.
 
-![PCOSense Demo](screenshot.png)
-
 ## Overview
 
 PCOSense combines clinical data analysis with machine learning to help women understand their PCOS risk and receive actionable health guidance. The system analyzes 9 key health indicators and provides:
