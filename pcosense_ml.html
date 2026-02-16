@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCOSense - AI-Powered PCOS Health Assessment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B4789;
+            --primary-light: #B47BB5;
+            --primary-dark: #5D2E5C;
+            --accent: #E89CAE;
+            --accent-bright: #FF6B9D;
+            --sage: #9CAF88;
+            --cream: #FFF8F0;
+            --sand: #F5EBE0;
+            --charcoal: #2C2C2C;
+            --gray: #6B6B6B;
+            --success: #68B984;
+            --warning: #F4A261;
+            --danger: #E76F51;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--sand) 50%, #E8D5C4 100%);
+            color: var(--charcoal);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            position: relative;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent-bright) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            color: var(--gray);
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .ml-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent-bright) 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(139, 71, 137, 0.3);
+        }
+        
+        /* Main Card */
+        .main-card {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(139, 71, 137, 0.15);
+            padding: 50px;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-bright), transparent);
+        }
+        
+        /* Form Styles */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+        
+        input, select {
+            padding: 14px 18px;
+            border: 2px solid #E8D5C4;
+            border-radius: 12px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--cream);
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(139, 71, 137, 0.1);
+            background: white;
+        }
+        
+        /* Button */
+        .btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent-bright) 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(139, 71, 137, 0.3);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 71, 137, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Results Section */
+        .results {
+            display: none;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .results.show {
+            display: block;
+        }
+        
+        .prediction-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(139, 71, 137, 0.3);
+        }
+        
+        .stage-badge {
+            display: inline-block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding: 10px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .confidence {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        .ml-info {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 20px;
+            border-radius: 15px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .recommendations {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .recommendation-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .recommendation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        .rec-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .rec-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .rec-list {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .rec-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+        
+        .rec-list li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--accent-bright);
+            font-size: 1.2rem;
+        }
+        
+        /* Risk Factors */
+        .risk-factors {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .risk-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+        
+        .risk-icon {
+            font-size: 1.3rem;
+        }
+        
+        /* Loading Spinner */
+        .spinner {
+            display: none;
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(139, 71, 137, 0.1);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .spinner.show {
+            display: block;
+        }
+        
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(135deg, rgba(156, 175, 136, 0.1) 0%, rgba(156, 175, 136, 0.05) 100%);
+            border-left: 4px solid var(--sage);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        
+        .error-box {
+            background: linear-gradient(135deg, rgba(231, 111, 81, 0.1) 0%, rgba(231, 111, 81, 0.05) 100%);
+            border-left: 4px solid var(--danger);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            color: var(--danger);
+            display: none;
+        }
+        
+        .error-box.show {
+            display: block;
+        }
+        
+        /* Decorative Elements */
+        .decorative-circle {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.08;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            top: -100px;
+            right: -100px;
+        }
+        
+        .circle-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-bright);
+            bottom: -50px;
+            left: -50px;
+        }
+        
+        /* API Status */
+        .api-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--success);
+            animation: pulse 2s infinite;
+        }
+        
+        .status-dot.offline {
+            background: var(--danger);
+            animation: none;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .main-card {
+                padding: 30px 20px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .api-status {
+                top: 10px;
+                right: 10px;
+                font-size: 0.75rem;
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="decorative-circle circle-1"></div>
+    <div class="decorative-circle circle-2"></div>
+    
+    <div class="api-status" id="apiStatus">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Checking API...</span>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1 class="logo">PCOSense</h1>
+            <p class="tagline">AI-Powered PCOS Health Assessment</p>
+            <div class="ml-badge">🤖 Machine Learning Enabled</div>
+        </header>
+        
+        <div class="main-card">
+            <h2 class="section-title">Health Assessment</h2>
+            
+            <div class="info-box">
+                <strong>About this assessment:</strong> PCOSense uses a trained Random Forest machine learning model with 78% accuracy to analyze your health indicators. The model was trained on real clinical PCOS data and provides personalized insights based on patterns in the data. Please fill in all fields accurately for the best results.
+            </div>
+            
+            <form id="pcosForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="age">Age (years)</label>
+                        <input type="number" id="age" name="age" required min="12" max="60" placeholder="e.g., 28">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bmi">BMI (Body Mass Index)</label>
+                        <input type="number" id="bmi" name="bmi" required step="0.1" min="10" max="60" placeholder="e.g., 24.5">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cycle_length">Menstrual Cycle Length (days)</label>
+                        <input type="number" id="cycle_length" name="cycle_length" required min="15" max="100" placeholder="e.g., 32">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cycle_regularity">Cycle Regularity</label>
+                        <select id="cycle_regularity" name="cycle_regularity" required>
+                            <option value="">Select...</option>
+                            <option value="2">Regular (±2 days)</option>
+                            <option value="1">Irregular (3-7 days variation)</option>
+                            <option value="0">Very Irregular (>7 days variation)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hair_growth">Excess Hair Growth (Hirsutism)</label>
+                        <select id="hair_growth" name="hair_growth" required>
+                            <option value="">Select...</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pimples">Acne/Pimples</label>
+                        <select id="pimples" name="pimples" required>
+                            <option value="">Select...</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hair_loss">Hair Loss/Thinning</label>
+                        <select id="hair_loss" name="hair_loss" required>
+                            <option value="">Select...</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="weight_gain">Recent Weight Gain</label>
+                        <select id="weight_gain" name="weight_gain" required>
+                            <option value="">Select...</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="skin_darkening">Skin Darkening (Acanthosis)</label>
+                        <select id="skin_darkening" name="skin_darkening" required>
+                            <option value="">Select...</option>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <button type="submit" class="btn" id="submitBtn">Analyze with AI</button>
+                </div>
+                
+                <div class="error-box" id="errorBox"></div>
+            </form>
+            
+            <div class="spinner" id="spinner"></div>
+        </div>
+        
+        <div class="results" id="results">
+            <div class="prediction-card">
+                <div class="stage-badge" id="stageBadge"></div>
+                <p style="font-size: 1.2rem; margin-top: 15px;" id="stageDescription"></p>
+                <p class="confidence" id="confidence"></p>
+                <div class="ml-info">
+                    <strong>AI Analysis</strong> • Trained on 541 clinical cases
+                </div>
+                <div class="risk-factors" id="riskFactors"></div>
+            </div>
+            
+            <div class="main-card">
+                <h2 class="section-title">Personalized Recommendations</h2>
+                <p style="color: var(--gray); margin-bottom: 20px;">Based on your health assessment and risk profile, here are evidence-based lifestyle modifications:</p>
+                <div class="recommendations" id="recommendations"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Configuration
+        const API_URL = 'http://localhost:5000';
+        let apiOnline = false;
+        
+        // Check API status on load
+        async function checkApiStatus() {
+            try {
+                const response = await fetch(`${API_URL}/health`);
+                const data = await response.json();
+                apiOnline = true;
+                document.getElementById('statusDot').classList.remove('offline');
+                document.getElementById('statusText').textContent = `AI Model Online (${Math.round(data.accuracy * 100)}% accuracy)`;
+            } catch (error) {
+                apiOnline = false;
+                document.getElementById('statusDot').classList.add('offline');
+                document.getElementById('statusText').textContent = 'API Offline - Start Flask server';
+            }
+        }
+        
+        // Check API status on page load and every 30 seconds
+        checkApiStatus();
+        setInterval(checkApiStatus, 30000);
+        
+        // Form Handling
+        document.getElementById('pcosForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Check if API is online
+            if (!apiOnline) {
+                showError('API is offline. Please start the Flask server: python flask_api.py');
+                return;
+            }
+            
+            // Collect form data
+            const formData = {
+                age: parseInt(document.getElementById('age').value),
+                bmi: parseFloat(document.getElementById('bmi').value),
+                cycle_length: parseInt(document.getElementById('cycle_length').value),
+                cycle_regularity: parseInt(document.getElementById('cycle_regularity').value),
+                hair_growth: parseInt(document.getElementById('hair_growth').value),
+                pimples: parseInt(document.getElementById('pimples').value),
+                hair_loss: parseInt(document.getElementById('hair_loss').value),
+                weight_gain: parseInt(document.getElementById('weight_gain').value),
+                skin_darkening: parseInt(document.getElementById('skin_darkening').value)
+            };
+            
+            // Show loading
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('spinner').classList.add('show');
+            document.getElementById('results').classList.remove('show');
+            document.getElementById('errorBox').classList.remove('show');
+            
+            try {
+                // Call API
+                const response = await fetch(`${API_URL}/predict`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    displayResults(result);
+                    
+                    // Scroll to results
+                    setTimeout(() => {
+                        document.getElementById('results').scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start' 
+                        });
+                    }, 300);
+                } else {
+                    throw new Error(result.error || 'Prediction failed');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showError('An error occurred during analysis. Please try again. Error: ' + error.message);
+            } finally {
+                // Hide loading
+                document.getElementById('spinner').classList.remove('show');
+                document.getElementById('submitBtn').disabled = false;
+            }
+        });
+        
+        function displayResults(result) {
+            const { prediction, recommendations, risk_factors } = result;
+            
+            // Update prediction card
+            document.getElementById('stageBadge').textContent = prediction.stage_name;
+            
+            // Set description based on stage
+            const descriptions = {
+                0: 'Your health indicators show a low likelihood of PCOS. Continue maintaining your healthy lifestyle!',
+                1: 'Mild PCOS indicators detected. Early intervention through lifestyle modifications can be highly effective.',
+                2: 'Moderate PCOS symptoms present. Implementing comprehensive lifestyle changes is important now.',
+                3: 'Significant PCOS indicators detected. We recommend consulting with a healthcare provider along with lifestyle modifications.',
+                4: 'Severe PCOS symptoms detected. Please consult an endocrinologist or gynecologist for comprehensive evaluation and treatment.'
+            };
+            
+            document.getElementById('stageDescription').textContent = descriptions[prediction.stage] || descriptions[2];
+            document.getElementById('confidence').textContent = `Analysis Confidence: ${prediction.confidence}%`;
+            
+            // Display risk factors
+            const riskFactorsHTML = [];
+            if (risk_factors.high_bmi) {
+                riskFactorsHTML.push('<div class="risk-item"><span class="risk-icon">⚠️</span> High BMI detected</div>');
+            }
+            if (risk_factors.irregular_cycles) {
+                riskFactorsHTML.push('<div class="risk-item"><span class="risk-icon">⚠️</span> Irregular cycles</div>');
+            }
+            if (risk_factors.hyperandrogenism) {
+                riskFactorsHTML.push('<div class="risk-item"><span class="risk-icon">⚠️</span> Hyperandrogenism signs</div>');
+            }
+            if (risk_factors.metabolic_issues) {
+                riskFactorsHTML.push('<div class="risk-item"><span class="risk-icon">⚠️</span> Metabolic concerns</div>');
+            }
+            
+            if (riskFactorsHTML.length > 0) {
+                document.getElementById('riskFactors').innerHTML = riskFactorsHTML.join('');
+            } else {
+                document.getElementById('riskFactors').innerHTML = '<div class="risk-item"><span class="risk-icon">✓</span> No major risk factors detected</div>';
+            }
+            
+            // Update recommendations
+            const recommendationsHTML = `
+                <div class="recommendation-card">
+                    <div class="rec-icon">🧘‍♀️</div>
+                    <h3 class="rec-title">Yoga Practice</h3>
+                    <ul class="rec-list">
+                        ${recommendations.yoga.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="recommendation-card">
+                    <div class="rec-icon">🥗</div>
+                    <h3 class="rec-title">Nutrition Guide</h3>
+                    <ul class="rec-list">
+                        ${recommendations.nutrition.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="recommendation-card">
+                    <div class="rec-icon">💪</div>
+                    <h3 class="rec-title">Exercise Plan</h3>
+                    <ul class="rec-list">
+                        ${recommendations.exercise.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            
+            document.getElementById('recommendations').innerHTML = recommendationsHTML;
+            document.getElementById('results').classList.add('show');
+        }
+        
+        function showError(message) {
+            const errorBox = document.getElementById('errorBox');
+            errorBox.textContent = message;
+            errorBox.classList.add('show');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+{
+  "feature_names": [
+    "Age (yrs)",
+    "BMI",
+    "Cycle length(days)",
+    "cycle_regularity_score",
+    "Weight gain(Y/N)",
+    "hair growth(Y/N)",
+    "Skin darkening (Y/N)",
+    "Hair loss(Y/N)",
+    "Pimples(Y/N)",
+    "Pulse rate(bpm)",
+    "Weight (Kg)",
+    "RBS(mg/dl)"
+  ],
+  "model_type": "Random Forest",
+  "accuracy": 0.7798165137614679,
+  "feature_importance": [
+    {
+      "feature": "BMI",
+      "importance": 0.14024019814728528
+    },
+    {
+      "feature": "Weight (Kg)",
+      "importance": 0.11910147021381201
+    },
+    {
+      "feature": "hair growth(Y/N)",
+      "importance": 0.10631124375143804
+    },
+    {
+      "feature": "Age (yrs)",
+      "importance": 0.10515754185857648
+    },
+    {
+      "feature": "Weight gain(Y/N)",
+      "importance": 0.0892125923181818
+    },
+    {
+      "feature": "cycle_regularity_score",
+      "importance": 0.08483671821904791
+    },
+    {
+      "feature": "RBS(mg/dl)",
+      "importance": 0.07763841719980367
+    },
+    {
+      "feature": "Skin darkening (Y/N)",
+      "importance": 0.06421374195640472
+    },
+    {
+      "feature": "Pimples(Y/N)",
+      "importance": 0.061397154388740244
+    },
+    {
+      "feature": "Cycle length(days)",
+      "importance": 0.0540960855950138
+    },
+    {
+      "feature": "Pulse rate(bpm)",
+      "importance": 0.051360192879973836
+    },
+    {
+      "feature": "Hair loss(Y/N)",
+      "importance": 0.046434643471722194
+    }
+  ],
+  "severity_mapping": {
+    "0": "No PCOS",
+    "1": "Stage 1 - Early/Mild",
+    "2": "Stage 2 - Moderate",
+    "3": "Stage 3 - Significant",
+    "4": "Stage 4 - Severe"
+  }
+}
